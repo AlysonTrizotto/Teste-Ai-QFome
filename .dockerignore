@@ -1,0 +1,33 @@
+# Ignore local dependencies and artifacts to keep build context small and avoid path/symlink issues
+vendor/
+node_modules/
+
+# VCS and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Laravel generated files
+storage/logs/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+
+# Build outputs
+public/hot
+public/build/
+resources/js/*.map
+
+# Docker
+Dockerfile.*
+
+docker-compose.override.yml

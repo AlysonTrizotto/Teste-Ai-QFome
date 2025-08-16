@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        if (Schema::hasTable('customers')) { return; }
+        Schema::create('customers', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('name', 255);
+            $table->string('email')->unique();
+            $table->string('password', 255)->nullable();
+            $table->timestampTz('created_at', 6)->useCurrent();
+            $table->timestampTz('updated_at', 6)->useCurrent();
+            $table->softDeletes();
+            $table->index(['email'], 'idx_customers_email');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('customers');
+        Schema::enableForeignKeyConstraints();
+    }
+};
