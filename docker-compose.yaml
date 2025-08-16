@@ -87,6 +87,9 @@ services:
       # Octane (Swoole)
       - OCTANE_SERVER=swoole
       - OCTANE_HTTPS=false
+
+      # External services
+      - FAKE_API_PRODUCTS="https://fakestoreapi.com/products"
     depends_on:
       - postgres
       - redis

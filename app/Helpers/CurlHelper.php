@@ -19,7 +19,7 @@ class CurlHelper
         $this->setOpt(CURLOPT_TIMEOUT, 0);
         $this->setOpt(CURLOPT_FOLLOWLOCATION, true);
         $this->setOpt(CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        $this->setOpt(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $this->setOpt(CURLOPT_HTTPHEADER, array('Accept: application/json'));
     }
 
     /**

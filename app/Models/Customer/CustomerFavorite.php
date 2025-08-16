@@ -34,4 +34,9 @@ class CustomerFavorite extends Model
         
         return $query;
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

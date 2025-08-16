@@ -36,4 +36,9 @@ class Customer extends Model
 
         return $query;
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(CustomerFavorite::class);
+    }
 }

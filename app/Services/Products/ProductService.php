@@ -29,7 +29,7 @@ class ProductService
                 $this->checkResponse($response, $this->cache_key);
                 return $response;
             });
-            
+  
             return json_decode($response, true);
         } catch (\Exception $e) {
            throw new \Exception($e->getMessage());
@@ -52,6 +52,28 @@ class ProductService
             });
 
             return $response ? json_decode($response, true) : null;
+        } catch (\Exception $e) {
+           throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function showSmallFields(int $id): array|null
+    {
+        try {
+            $response = Cache::remember($this->cache_key . '_' . $id, $this->cache_time, function () use ($id) {
+                $response = $this->curl->get($this->url, $id);
+                $this->checkResponse($response, $this->cache_key . '_' . $id);
+                return $response;
+            });
+
+            $response = json_decode($response, true);
+            return $response ? [
+                'id' => $response['id'],
+                'title' => $response['title'],
+                'price' => $response['price'],
+                'image' => $response['image'],
+                'rating' => $response['rating'],
+            ] : null;
         } catch (\Exception $e) {
            throw new \Exception($e->getMessage());
         }

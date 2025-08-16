@@ -26,9 +26,9 @@ class CustomerFavoriteController extends Controller
         return (new CustomerFavoriteResource($model))->response()->setStatusCode(201);
     }
 
-    public function show(CustomerFavorite $customerFavorite)
+    public function show(int $id)
     {
-        return new CustomerFavoriteResource($customerFavorite);
+        return new CustomerFavoriteResource($this->service->show($id));
     }
 
     public function update(CustomerFavorite $customerFavorite, UpdateCustomerFavoriteRequest $request)
