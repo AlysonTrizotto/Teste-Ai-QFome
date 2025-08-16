@@ -3,13 +3,10 @@
 namespace Tests\Feature\Customer;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Customer\CustomerFavorite;
-use Illuminate\Support\Str;
 
 class CustomerFavoriteControllerTest extends TestCase
 {
-    use DatabaseMigrations;
 
     public function test_index_returns_ok(): void
     {

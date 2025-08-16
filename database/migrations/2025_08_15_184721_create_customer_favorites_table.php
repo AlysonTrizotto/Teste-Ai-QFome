@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->id('id');
             $table->bigInteger('customer_id');
             $table->bigInteger('product_id');
-            $table->timestampTz('updated_at', 6)->useCurrent();
+            $table->timestamps();
             $table->softDeletes();
             $table->index(['customer_id'], 'idx_customer_favorites_customer');
             $table->index(['product_id'], 'idx_customer_favorites_product');

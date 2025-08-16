@@ -4,12 +4,12 @@ namespace App\Models\Customer;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Authenticatable;
 
     protected $table = 'customers';
     protected $primaryKey = 'id';
@@ -19,20 +19,21 @@ class Customer extends Model
     protected $fillable = [
         'name',
         'email',
-        'password'
     ];
 
     protected $casts = [
         
     ];
 
-    // Basic filter scope example
     public function scopeFilter($query, array $filters)
     {
-        foreach ($filters as $field => $value) {
-            if ($value === null || $value === '') continue;
-            $query->where($field, $value);
-        }
+        $query->when($filters['name'] ?? null, function ($query, $name) {
+            $name = str_replace(' ', '%', $name);
+            $query->where('name', 'like', "%{$name}%");
+        })->when($filters['email'] ?? null, function ($query, $email) {
+            $query->where('email', 'like', "%{$email}%");
+        });
+
         return $query;
     }
 }

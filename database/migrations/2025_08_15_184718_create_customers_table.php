@@ -13,9 +13,7 @@ return new class extends Migration {
             $table->id('id');
             $table->string('name', 255);
             $table->string('email')->unique();
-            $table->string('password', 255)->nullable();
-            $table->timestampTz('created_at', 6)->useCurrent();
-            $table->timestampTz('updated_at', 6)->useCurrent();
+            $table->timestamps();
             $table->softDeletes();
             $table->index(['email'], 'idx_customers_email');
         });

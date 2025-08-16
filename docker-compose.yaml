@@ -94,11 +94,25 @@ services:
       - ai-qfome
     command: >-
       sh -lc '
-        php artisan optimize:clear &&
-        php artisan optimize &&
-        if [ ! -f vendor/laravel/octane/composer.json ]; then composer require laravel/octane:^2.0 --no-interaction || true; fi &&
-        if [ ! -f config/octane.php ]; then php artisan octane:install --server=swoole -n || true; fi &&
-        php artisan migrate --force &&
+        set -e;
+
+        #Instala as dependências do composer
+        if [ ! -d vendor ]; then
+          composer install --no-dev --prefer-dist || true;
+        fi;
+
+        # Instala o Octane
+        if [ ! -f vendor/laravel/octane/composer.json ]; then
+          composer require laravel/octane:^2.0 --no-interaction --no-scripts || true;
+        fi;
+        if [ ! -f config/octane.php ]; then
+          php artisan octane:install --server=swoole -n || true;
+        fi;
+
+        #Inicia o Octane fazendo limpeza e otimização com cache (de configurações) do laravel
+        php artisan optimize:clear;
+        php artisan optimize;
+        php artisan migrate --force;
         php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
       '
 
@@ -121,5 +135,5 @@ volumes:
 
 networks:
   ai-qfome:
-    # external: true
+    external: true
     driver: bridge

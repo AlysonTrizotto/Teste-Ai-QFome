@@ -4,7 +4,6 @@ namespace App\Models\Customer;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomerFavorite extends Model
@@ -25,13 +24,14 @@ class CustomerFavorite extends Model
         
     ];
 
-    // Basic filter scope example
     public function scopeFilter($query, array $filters)
     {
-        foreach ($filters as $field => $value) {
-            if ($value === null || $value === '') continue;
-            $query->where($field, $value);
-        }
+        $query->when($filters['customer_id'] ?? null, function ($query, $customer_id) {
+            $query->where('customer_id', $customer_id);
+        })->when($filters['product_id'] ?? null, function ($query, $product_id) {
+            $query->where('product_id', $product_id);
+        });
+        
         return $query;
     }
 }

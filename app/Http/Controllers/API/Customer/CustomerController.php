@@ -7,17 +7,16 @@ use App\Models\Customer\Customer;
 use App\Services\Customer\CustomerService;
 use App\Http\Requests\Customer\Customer\StoreCustomerRequest;
 use App\Http\Requests\Customer\Customer\UpdateCustomerRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Customer\IndexCustomerRequest;
 use App\Http\Resources\Customer\CustomerResource;
 
 class CustomerController extends Controller
 {
     public function __construct(private CustomerService $service) {}
 
-    public function index(Request $request)
+    public function index(IndexCustomerRequest $request)
     {
-        $data = $this->service->paginate($request->all(), (int) $request->get('per_page', 15));
-        // Wrap paginator in Resource so it handles pagination metadata automatically
+        $data = $this->service->paginate($request->validated(), (int) $request->get('per_page', 15));
         return new CustomerResource($data);
     }
 

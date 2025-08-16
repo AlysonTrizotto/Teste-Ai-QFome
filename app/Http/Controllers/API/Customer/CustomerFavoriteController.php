@@ -17,7 +17,6 @@ class CustomerFavoriteController extends Controller
     public function index(Request $request)
     {
         $data = $this->service->paginate($request->all(), (int) $request->get('per_page', 15));
-        // Wrap paginator in Resource so it handles pagination metadata automatically
         return new CustomerFavoriteResource($data);
     }
 
