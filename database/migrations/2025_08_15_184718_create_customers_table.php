@@ -12,11 +12,13 @@ return new class extends Migration {
         Schema::create('customers', function (Blueprint $table) {
             $table->id('id');
             $table->string('name', 255);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamps();
-            $table->softDeletes();
-            $table->index(['email'], 'idx_customers_email');
+            $table->softDeletes()->index();
         });
+
+        DB::statement("CREATE INDEX idx_customers_name ON customers (name) WHERE deleted_at IS NULL");
+        DB::statement("CREATE UNIQUE INDEX idx_customers_email ON customers (lower(email)) WHERE deleted_at IS NULL");
     }
 
     public function down(): void

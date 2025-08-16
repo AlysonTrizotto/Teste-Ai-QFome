@@ -3,12 +3,13 @@
 namespace App\Services\Customer;
 
 use App\Models\Customer\Customer;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerService
 {
-    public function paginate(array $filters = [], int $perPage = 15)
+    public function paginate(array $filters = []): LengthAwarePaginator
     {
-        return Customer::query()->filter($filters)->paginate($perPage);
+        return Customer::query()->filter($filters)->paginate();
     }
 
     public function create(array $data): Customer

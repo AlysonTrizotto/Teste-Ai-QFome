@@ -22,8 +22,17 @@ class IndexCustomerFavoriteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => 'nullable|numeric|exists:customers,id',
-            'product_id' => 'nullable|numeric',
+            'customer_id' => 'sometimes|numeric|exists:customers,id',
+            'product_id' => 'sometimes|numeric',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'customer_id.integer' => 'O campo cliente deve ser um número inteiro.',
+            'customer_id.exists' => 'O cliente informado não existe.',
+            'product_id.integer' => 'O campo produto deve ser um número inteiro.',
         ];
     }
 }

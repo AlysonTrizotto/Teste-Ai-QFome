@@ -7,16 +7,16 @@ use App\Models\Customer\CustomerFavorite;
 use App\Services\Customer\CustomerFavoriteService;
 use App\Http\Requests\Customer\CustomerFavorite\StoreCustomerFavoriteRequest;
 use App\Http\Requests\Customer\CustomerFavorite\UpdateCustomerFavoriteRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Customer\CustomerFavorite\IndexCustomerFavoriteRequest;
 use App\Http\Resources\Customer\CustomerFavoriteResource;
 
 class CustomerFavoriteController extends Controller
 {
     public function __construct(private CustomerFavoriteService $service) {}
 
-    public function index(Request $request)
+    public function index(IndexCustomerFavoriteRequest $request)
     {
-        $data = $this->service->paginate($request->all(), (int) $request->get('per_page', 15));
+        $data = $this->service->paginate($request->validated());
         return new CustomerFavoriteResource($data);
     }
 

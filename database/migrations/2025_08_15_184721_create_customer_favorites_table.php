@@ -11,13 +11,17 @@ return new class extends Migration {
         if (Schema::hasTable('customer_favorites')) { return; }
         Schema::create('customer_favorites', function (Blueprint $table) {
             $table->id('id');
-            $table->bigInteger('customer_id');
-            $table->bigInteger('product_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
-            $table->softDeletes();
-            $table->index(['customer_id'], 'idx_customer_favorites_customer');
-            $table->index(['product_id'], 'idx_customer_favorites_product');
+            $table->softDeletes()->index();
+
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('restrict');
         });
+
+        DB::statement("CREATE INDEX idx_customer_favorites_customer ON customer_favorites (customer_id) WHERE deleted_at IS NULL");
+        DB::statement("CREATE INDEX idx_customer_favorites_product ON customer_favorites (product_id) WHERE deleted_at IS NULL");
+        DB::statement("CREATE UNIQUE INDEX idx_customer_favorites_customer_product ON customer_favorites (customer_id, product_id) WHERE deleted_at IS NULL");
     }
 
     public function down(): void

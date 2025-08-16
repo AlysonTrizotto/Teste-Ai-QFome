@@ -3,12 +3,13 @@
 namespace App\Services\Customer;
 
 use App\Models\Customer\CustomerFavorite;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerFavoriteService
 {
-    public function paginate(array $filters = [], int $perPage = 15)
+    public function paginate(array $filters = []): LengthAwarePaginator
     {
-        return CustomerFavorite::query()->filter($filters)->paginate($perPage);
+        return CustomerFavorite::query()->filter($filters)->paginate();
     }
 
     public function create(array $data): CustomerFavorite
