@@ -1,106 +1,698 @@
 {
-  "info": {
-    "_postman_id": "2f8e2a1a-6e3b-4f6d-9b35-8c1a3e6a8a11",
-    "name": "AI-QFome API",
-    "description": "Postman collection for testing Laravel API routes (customers and customer-favorites) behind Nginx -> Octane (Swoole). Base URL is {{base_url}}.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Health",
-      "item": [
-        {
-          "name": "GET /",
-          "request": {"method": "GET","header": [],"url": {"raw": "{{base_url}}/","host": ["{{base_url}}"],"path": [""]}},
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Customers",
-      "item": [
-        {
-          "name": "GET /api/v1/customers",
-          "request": {"method": "GET","header": [],"url": {"raw": "{{base_url}}/api/v1/customers","host": ["{{base_url}}"],"path": ["api","v1","customers"]}},
-          "response": []
-        },
-        {
-          "name": "POST /api/v1/customers",
-          "request": {
-            "method": "POST",
-            "header": [{"key": "Content-Type","value": "application/json"}],
-            "body": {"mode": "raw","raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe+test@example.com\",\n  \"password\": \"password123\"\n}"},
-            "url": {"raw": "{{base_url}}/api/v1/customers","host": ["{{base_url}}"],"path": ["api","v1","customers"]}
-          },
-          "response": []
-        },
-        {
-          "name": "GET /api/v1/customers/{id}",
-          "request": {"method": "GET","header": [],"url": {"raw": "{{base_url}}/api/v1/customers/{{customer_id}}","host": ["{{base_url}}"],"path": ["api","v1","customers","{{customer_id}}"]}},
-          "response": []
-        },
-        {
-          "name": "PUT /api/v1/customers/{id}",
-          "request": {
-            "method": "PUT",
-            "header": [{"key": "Content-Type","value": "application/json"}],
-            "body": {"mode": "raw","raw": "{\n  \"name\": \"John Updated\"\n}"},
-            "url": {"raw": "{{base_url}}/api/v1/customers/{{customer_id}}","host": ["{{base_url}}"],"path": ["api","v1","customers","{{customer_id}}"]}
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE /api/v1/customers/{id}",
-          "request": {"method": "DELETE","header": [],"url": {"raw": "{{base_url}}/api/v1/customers/{{customer_id}}","host": ["{{base_url}}"],"path": ["api","v1","customers","{{customer_id}}"]}},
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Customer Favorites",
-      "item": [
-        {
-          "name": "GET /api/v1/customer-favorites",
-          "request": {"method": "GET","header": [],"url": {"raw": "{{base_url}}/api/v1/customer-favorites","host": ["{{base_url}}"],"path": ["api","v1","customer-favorites"]}},
-          "response": []
-        },
-        {
-          "name": "POST /api/v1/customer-favorites",
-          "request": {
-            "method": "POST",
-            "header": [{"key": "Content-Type","value": "application/json"}],
-            "body": {"mode": "raw","raw": "{\n  \"customer_id\": 1,\n  \"product_id\": 123\n}"},
-            "url": {"raw": "{{base_url}}/api/v1/customer-favorites","host": ["{{base_url}}"],"path": ["api","v1","customer-favorites"]}
-          },
-          "response": []
-        },
-        {
-          "name": "GET /api/v1/customer-favorites/{id}",
-          "request": {"method": "GET","header": [],"url": {"raw": "{{base_url}}/api/v1/customer-favorites/{{favorite_id}}","host": ["{{base_url}}"],"path": ["api","v1","customer-favorites","{{favorite_id}}"]}},
-          "response": []
-        },
-        {
-          "name": "PUT /api/v1/customer-favorites/{id}",
-          "request": {
-            "method": "PUT",
-            "header": [{"key": "Content-Type","value": "application/json"}],
-            "body": {"mode": "raw","raw": "{\n  \"product_id\": 456\n}"},
-            "url": {"raw": "{{base_url}}/api/v1/customer-favorites/{{favorite_id}}","host": ["{{base_url}}"],"path": ["api","v1","customer-favorites","{{favorite_id}}"]}
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE /api/v1/customer-favorites/{id}",
-          "request": {"method": "DELETE","header": [],"url": {"raw": "{{base_url}}/api/v1/customer-favorites/{{favorite_id}}","host": ["{{base_url}}"],"path": ["api","v1","customer-favorites","{{favorite_id}}"]}},
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [],
-  "variable": [
-    {"key": "base_url", "value": "http://localhost:8030"},
-    {"key": "customer_id", "value": "1"},
-    {"key": "favorite_id", "value": "1"}
-  ]
+	"info": {
+		"_postman_id": "6386441f-6756-4248-a2e5-5ef37cc968a1",
+		"name": "AI-QFome API",
+		"description": "Postman collection for testing Laravel API routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19255200"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Check API runing",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let token = jsonData.token;\r",
+									"    // Save token in global variable named \"bearerToken\"\r",
+									"    pm.collectionVariables.set(\"bearerToken\", token);\r",
+									"    console.log(\"Bearer token set to:\", token);\r",
+									"} else {\r",
+									"    console.log(\"Response code is not 200:\", pm.response.code);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@mail.com\",\n  \"password\": \"supersecret\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/authenticate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "List Customers",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"dswaniawski@toy.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/:customer_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								":customer_id"
+							],
+							"variable": [
+								{
+									"key": "customer_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Laudantium ipsam et eum ullam.\",\n  \"email\" : \"dswaniawski@toy.com\",\n  \"password\" : \"Eum optio autem ut odit omnis ipsum debitis qui.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/:customer_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								":customer_id"
+							],
+							"variable": [
+								{
+									"key": "customer_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customers/:customer_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								":customer_id"
+							],
+							"variable": [
+								{
+									"key": "customer_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Favorites",
+			"item": [
+				{
+					"name": "List favorites",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customer-favorites",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer-favorites"
+							],
+							"query": [
+								{
+									"key": "customer_id",
+									"value": "99999",
+									"disabled": true
+								},
+								{
+									"key": "product_id",
+									"value": "123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Favorite",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer_id\": 2,\n  \"product_id\": 4\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customer-favorites",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer-favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customer-favorites/:favorite_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer-favorites",
+								":favorite_id"
+							],
+							"variable": [
+								{
+									"key": "favorite_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Favorite",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer_id\": 1,\n    \"product_id\": 123\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/customer-favorites/:favorite_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer-favorites",
+								":favorite_id"
+							],
+							"variable": [
+								{
+									"key": "favorite_id",
+									"value": "43"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/v1/customer-favorites/{id}",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/customer-favorites/:favorite_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer-favorites",
+								":favorite_id"
+							],
+							"variable": [
+								{
+									"key": "favorite_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Fake Store API",
+					"item": [
+						{
+							"name": "List all",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{fake_store_api}}",
+									"host": [
+										"{{fake_store_api}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{fake_store_api}}/:id",
+									"host": [
+										"{{fake_store_api}}"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Proxy Service",
+					"item": [
+						{
+							"name": "List all",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/products",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/v1/products/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "> These folders have two paths, \"_Fake Store API_\" is a direct consuming and \"_Proxy Service_\" this is an internal consuming with a cache mechanism to make a **fast calling**"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8030"
+		},
+		{
+			"key": "customer_id",
+			"value": "1"
+		},
+		{
+			"key": "favorite_id",
+			"value": "1"
+		},
+		{
+			"key": "fake_store_api",
+			"value": "https://fakestoreapi.com/products"
+		},
+		{
+			"key": "bearerToken",
+			"value": "1|bXDsO8dYTAFc8HnbVInMCJRdtJnVy1tTC3JV2pt20511261d",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			}
+		}
+	]
 }

@@ -90,7 +90,7 @@ Notas:
 Visão macro (runtime):
 
 ```
-[Nginx :80] -> proxy -> [Octane (Swoole) :8000 - Laravel]
+[Nginx :80|8030] -> proxy -> [Octane (Swoole) :8000 - Laravel]
                                    |
                                    +--> PostgreSQL (dados)
                                    |
@@ -138,14 +138,14 @@ Camadas internas:
 
 4) Usuário semeado (seed)
    - O `docker-compose.yaml` executa `php artisan db:seed` automaticamente na subida do container `app`.
-   - As credenciais padrão são definidas por variáveis de ambiente (você pode personalizar no compose ou no `.env`):
+   - As credenciais padrão são definidas por variáveis de ambiente (você pode personalizar no docker-compose ou no `.env`):
    ```env
    SEED_USER_EMAIL=admin@mail.com
    SEED_USER_NAME=Admin
    SEED_USER_PASSWORD=supersecret
    ```
    - Essas credenciais serão usadas no fluxo de autenticação descrito na seção 6.1.
-   - Banco (valores padrão do compose):
+   - Banco (valores padrão do compose / .env):
    ```env
    DB_CONNECTION=pgsql
    DB_HOST=postgres
@@ -165,7 +165,7 @@ Aplicação disponível em: http://localhost:8030
 O container `app` executa automaticamente:
 - `php artisan config:cache`
 - `php artisan migrate --force`
-- inicialização do Laravel Octane (Swoole) em :8000 (Nginx faz proxy)
+- inicialização do Laravel Octane (Swoole) em :8000 (porta que o Nginx faz proxy)
 
 ### 4.4. Comandos úteis
 - Logs
@@ -178,7 +178,7 @@ docker compose logs -f redis
 
 - Artisan dentro do container `app`
 ```bash
-docker compose exec app php artisan migrate
+docker compose exec app php artisan migrate # (necessário quando executado testes dentro do container)
 docker compose exec app php artisan tinker
 docker compose exec app php artisan test
 ```
