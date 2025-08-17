@@ -37,6 +37,8 @@ return [
 
     'fakestoreapi' => [
         'url' => env('FAKE_API_PRODUCTS', 'https://fakestoreapi.com/products'),
+        'ttl' => env('FAKE_API_PRODUCTS_TTL', 60*5),
+        'cache' => env('FAKE_API_PRODUCTS_CACHE', 'products'),
     ],
 
 ];

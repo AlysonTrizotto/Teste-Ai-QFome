@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Casts\Customer\Customer\EmailCast;
+use App\Casts\Customer\Customer\NameCast;
 
 class Customer extends Model
 {
@@ -22,7 +24,8 @@ class Customer extends Model
     ];
 
     protected $casts = [
-        
+        'email' => EmailCast::class,
+        'name' => NameCast::class,
     ];
 
     public function scopeFilter($query, array $filters)

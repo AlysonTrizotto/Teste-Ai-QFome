@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Cache;
 class ProductService
 {
     private $url;
-    private $cache_time = 60 * 5;
-    private $cache_key = 'products';
+    private $cache_time;
+    private $cache_key;
 
     public function __construct(private CurlHelper $curl)
     {
         $this->url = config('services.fakestoreapi.url');
+        $this->cache_time = config('services.fakestoreapi.ttl');
+        $this->cache_key = config('services.fakestoreapi.cache');
     }
 
     /**
