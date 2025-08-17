@@ -2,6 +2,8 @@
 
 Eu desenvolvi esta API em Laravel 12 para gerenciar clientes e seus favoritos, integrando com um catálogo de produtos externo (FakeStore API). O ambiente roda em Docker com Laravel Octane (Swoole), Nginx, PostgreSQL e Redis.
 
+##### Nota: Este projeto foi construído utilizando a biblioteca alysontrizotto/laravel-ddl-crud, que gera CRUDs a partir de DDL. Ela não faz uso de IA, apenas de análise de texto. 
+
 URL padrão: http://localhost:8030
 
 ------------------------------------------------------------
