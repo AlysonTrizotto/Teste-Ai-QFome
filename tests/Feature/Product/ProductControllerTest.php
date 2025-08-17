@@ -38,6 +38,8 @@ class ProductControllerTest extends TestCase
         $res = $this->getJson('/api/v1/products');
         $res->assertOk()
             ->assertJsonStructure([
+                'status',
+                'message',
                 'data' => [
                     [
                         'id', 'title', 'price', 'description', 'category', 'image',
@@ -66,8 +68,13 @@ class ProductControllerTest extends TestCase
         $res = $this->getJson('/api/v1/products/1');
         $res->assertOk()
             ->assertJsonStructure([
-                'id', 'title', 'price', 'description', 'category', 'image',
-                'rating' => ['rate', 'count']
+                'status',
+                'message',
+                'data' => [
+                    'id', 'title', 'price', 'description', 'category', 'image',
+                    'rating' => ['rate', 'count']
+                ]
             ]);
     }
 }
+

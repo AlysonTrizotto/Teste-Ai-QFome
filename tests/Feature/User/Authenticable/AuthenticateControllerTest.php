@@ -23,8 +23,12 @@ class AuthenticateControllerTest extends TestCase
 
         $res->assertOk()
             ->assertJsonStructure([
-                'token',
-                'user' => ['id', 'name', 'email']
+                'status',
+                'message',
+                'data' => [
+                    'token',
+                    'user' => ['id', 'name', 'email']
+                ]
             ]);
     }
 
@@ -40,7 +44,12 @@ class AuthenticateControllerTest extends TestCase
             'password' => 'wrong-password',
         ]);
 
-        $res->assertStatus(422)
-            ->assertJsonValidationErrors(['email']);
+        $res->assertStatus(400)
+            ->assertJsonStructure([
+                'status',
+                'message',
+                'errors'
+            ]);
     }
 }
+

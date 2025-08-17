@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Customer\Customer;
 
+use App\Trait\PrepareEmailToValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateCustomerRequest extends FormRequest
 {
+    use PrepareEmailToValidationTrait;
+    
     public function authorize(): bool
     {
         return true;

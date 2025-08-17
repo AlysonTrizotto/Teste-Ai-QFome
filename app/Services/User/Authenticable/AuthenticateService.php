@@ -22,9 +22,9 @@ class AuthenticateService
 
         $token = $user->createToken('auth-token')->plainTextToken;
 
-        return response()->json([
+        return [
             'token' => $token,
             'user' => $user,
-        ]);
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Customer;
 
+use App\Enum\HttpCodeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Customer\Customer;
 use App\Services\Customer\CustomerService;
@@ -16,30 +17,50 @@ class CustomerController extends Controller
 
     public function index(IndexCustomerRequest $request)
     {
-        $data = $this->service->paginate($request->validated());
-        return new CustomerResource($data);
+        try {
+            $data = $this->service->paginate($request->validated());
+            return $this->sendSuccessResponse(new CustomerResource($data), 'Customers retrieved successfully', HttpCodeEnum::OK->value);
+        } catch (\Exception $e) {
+            return $this->sendFailResponse($e);
+        }
     }
 
     public function store(StoreCustomerRequest $request)
     {
-        $model = $this->service->create($request->validated());
-        return (new CustomerResource($model))->response()->setStatusCode(201);
+        try {
+            $model = $this->service->create($request->validated());
+            return $this->sendSuccessResponse(new CustomerResource($model), 'Customer created successfully', HttpCodeEnum::CREATED->value);
+        } catch (\Exception $e) {
+            return $this->sendFailResponse($e);
+        }
     }
 
     public function show(Customer $customer)
     {
-        return new CustomerResource($customer);
+        try {
+            return $this->sendSuccessResponse(new CustomerResource($customer), 'Customer retrieved successfully', HttpCodeEnum::OK->value);
+        } catch (\Exception $e) {
+            return $this->sendFailResponse($e);
+        }
     }
 
     public function update(Customer $customer, UpdateCustomerRequest $request)
     {
-        $updated = $this->service->update($customer, $request->validated());
-        return new CustomerResource($updated);
+        try {
+            $updated = $this->service->update($customer, $request->validated());
+            return $this->sendSuccessResponse(new CustomerResource($updated), 'Customer updated successfully', HttpCodeEnum::OK->value);
+        } catch (\Exception $e) {
+            return $this->sendFailResponse($e);
+        }
     }
 
     public function destroy(Customer $customer)
     {
-        $this->service->delete($customer);
-        return response()->noContent();
+        try {
+            $this->service->delete($customer);
+            return $this->sendSuccessResponse(null, 'Customer deleted successfully', HttpCodeEnum::NO_CONTENT->value);
+        } catch (\Exception $e) {
+            return $this->sendFailResponse($e);
+        }
     }
 }
