@@ -5,6 +5,7 @@ namespace App\Http\Requests\Customer\CustomerFavorite;
 use App\Models\Customer\CustomerFavorite;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueProductByUserRule;
+use Illuminate\Validation\Rule;
 
 class UpdateCustomerFavoriteRequest extends FormRequest
 {
@@ -16,7 +17,12 @@ class UpdateCustomerFavoriteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => ['required', 'integer', 'exists:customers,id'],
+            'customer_id' => [
+                'required', 
+                'integer', 
+                Rule::exists('customers', 'id')
+                    ->whereNull('deleted_at'),
+            ],
             'product_id' => [
                 'nullable',
                 'integer',

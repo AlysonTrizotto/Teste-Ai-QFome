@@ -21,7 +21,7 @@ class UpdateCustomerRequest extends FormRequest
                 'string', 
                 'email', 
                 Rule::unique('customers', 'email')
-                    ->where('deleted_at', null)
+                    ->whereNull('deleted_at')
                     ->ignore($this->route('customer'))
             ],
         ];
