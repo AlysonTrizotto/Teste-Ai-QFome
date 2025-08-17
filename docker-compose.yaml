@@ -90,6 +90,11 @@ services:
 
       # External services
       - FAKE_API_PRODUCTS="https://fakestoreapi.com/products"
+
+      #SEED USER
+      - SEED_USER_EMAIL=admin@mail.com
+      - SEED_USER_NAME=Admin
+      - SEED_USER_PASSWORD=supersecret
     depends_on:
       - postgres
       - redis
@@ -116,6 +121,7 @@ services:
         php artisan optimize:clear;
         php artisan optimize;
         php artisan migrate --force;
+        php artisan db:seed --force;
         php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
       '
 

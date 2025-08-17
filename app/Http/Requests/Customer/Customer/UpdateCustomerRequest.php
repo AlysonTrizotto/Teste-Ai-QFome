@@ -20,9 +20,10 @@ class UpdateCustomerRequest extends FormRequest
                 'nullable', 
                 'string', 
                 'email', 
-                Rule::unique('customers', 'email')->ignore($this->route('customer'))
+                Rule::unique('customers', 'email')
+                    ->where('deleted_at', null)
+                    ->ignore($this->route('customer'))
             ],
-            'password' => 'nullable|string|max:255',
         ];
     }
 }
