@@ -27,13 +27,4 @@ class User extends Authenticatable
         
     ];
 
-    // Basic filter scope example
-    public function scopeFilter($query, array $filters)
-    {
-        foreach ($filters as $field => $value) {
-            if ($value === null || $value === '') continue;
-            $query->where($field, $value);
-        }
-        return $query;
-    }
 }

@@ -13,9 +13,15 @@ class Concurrency
      */
     public static function run(array $callbacks): array
     {
-        if (class_exists(\Laravel\Octane\Facades\Octane::class)) {
+        // Usa Octane somente se estiver instalado, rodando e fora de ambiente de teste.
+        if (class_exists(\Laravel\Octane\Facades\Octane::class)
+            && method_exists(\Laravel\Octane\Facades\Octane::class, 'isRunning')
+            && \Laravel\Octane\Facades\Octane::isRunning()
+            && !app()->environment('testing')) {
+            
             $results = \Laravel\Octane\Facades\Octane::concurrently($callbacks);
             return $results;
+            
         }
         
         $results = [];
