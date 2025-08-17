@@ -201,6 +201,7 @@ docker compose down -v      # remove volumes (apaga dados)
 ## 5. Execução de testes
 
 Certifique-se de ter executado o `composer install` antes de executar os testes e buildar o container.
+Antes de executar os testes, execute `php artisan config:clear` para limpar a configuração.
 Dê preferência para execução localmente (fora do container `app`), visto  que a instalação do container é `--no-dev`:
 ```bash
 php artisan test
