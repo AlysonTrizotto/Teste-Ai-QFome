@@ -7,8 +7,7 @@ class CurlHelper
     private $curl;
 
     /**
-     * CurlHelper constructor.
-     * Initialize cURL and set default options.
+     * Inicializa o cURL e define opções padrão.
      */
     public function __construct()
     {
@@ -23,7 +22,7 @@ class CurlHelper
     }
 
     /**
-     * Set cURL options.
+     * Define opções do cURL.
      *
      * @param int $opt
      * @param mixed $value
@@ -34,7 +33,7 @@ class CurlHelper
     }
 
     /**
-     * Execute cURL session.
+     * Executa a sessão cURL.
      *
      * @return string
      */
@@ -44,7 +43,7 @@ class CurlHelper
     }
 
     /**
-     * Make a GET request.
+     * Realiza uma requisição GET.
      *
      * @param string $url
      * @param int|null $id
@@ -59,7 +58,7 @@ class CurlHelper
     }
 
     /**
-     * Get cURL information.
+     * Obtém informações do cURL.
      *
      * @return array
      */
@@ -69,7 +68,7 @@ class CurlHelper
     }
 
     /**
-     * Get cURL error.
+     * Obtém o erro do cURL.
      *
      * @return string
      */

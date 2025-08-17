@@ -5,9 +5,9 @@ namespace App\Helpers;
 class Concurrency
 {
     /**
-     * Fallback to sequential execution.
+     * Fallback: execução sequencial.
      * 
-     * Check if Octane is avvailable
+     * Verifica se o Octane está disponível
      * @param array<int, callable> $callbacks
      * @return array<int, mixed>
      */
