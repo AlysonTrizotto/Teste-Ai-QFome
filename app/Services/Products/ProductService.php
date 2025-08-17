@@ -17,7 +17,7 @@ class ProductService
     }
 
     /**
-     * Fetch all products with cache for 5 minutes
+     * Busca todos os produtos com cache por 5 minutos
      *
      * @return array
      */
@@ -37,7 +37,7 @@ class ProductService
     }
 
     /**
-     * Fetch a product by id with cache for 5 minutes
+     * Busca um produto por ID com cache por 5 minutos
      *
      * @param int $id
      * @return array|null
@@ -80,7 +80,7 @@ class ProductService
     }
 
     /**
-     * Check response
+     * Verifica a resposta
      *
      * @param mixed $response
      * @param string $cacheKey
@@ -105,7 +105,7 @@ class ProductService
     }
 
     /**
-     * Error fetching products or product
+     * Erro ao buscar produtos ou produto
      *
      * @param string $message
      * @return void
@@ -116,3 +116,4 @@ class ProductService
     }
 
 }
+

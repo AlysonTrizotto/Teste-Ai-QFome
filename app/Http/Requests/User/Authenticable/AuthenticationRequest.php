@@ -15,7 +15,7 @@ use App\Models\User\User;
 class AuthenticationRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determina se o usuário está autorizado a fazer esta requisição.
      */
     public function authorize(): bool
     {
@@ -23,7 +23,7 @@ class AuthenticationRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Retorna as regras de validação que se aplicam à requisição.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -60,7 +60,7 @@ class AuthenticationRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        // Autentica o usuário para o siclo de vida completo da requisição (necessário para os testes).
+        // Autentica o usuário para o ciclo de vida completo da requisição (necessário para os testes).
         Auth::setUser($user);
         $this->setUserResolver(fn() => $user);
     }
@@ -84,10 +84,11 @@ class AuthenticationRequest extends FormRequest
     }
 
     /**
-     * Get the rate limiting throttle key for the request.
+     * Obtém a chave de limitação (rate limiting) para a requisição.
      */
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
     }
 }
+
