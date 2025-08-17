@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('v1')->middleware(['throttle:60,1'])->group(function () {
+Route::prefix('v1')->middleware(['throttle:10000,1'])->group(function () {
     Route::post('users/authenticate', [\App\Http\Controllers\API\User\Authenticable\AuthenticateController::class, 'authenticate']);
 
     Route::middleware('auth:sanctum')->group(function () {

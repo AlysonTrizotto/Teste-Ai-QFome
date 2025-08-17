@@ -90,7 +90,7 @@ Notas:
 Visão macro (runtime):
 
 ```
-[Nginx :80|8030] -> proxy -> [Octane (Swoole) :8000 - Laravel]
+[Nginx :8030] -> proxy -> [Octane (Swoole) :8000 - Laravel]
                                    |
                                    +--> PostgreSQL (dados)
                                    |
@@ -179,7 +179,7 @@ docker compose logs -f redis
 - Artisan dentro do container `app`
 ```bash
 docker compose exec app php artisan migrate # (necessário quando executado testes dentro do container)
-docker compose exec app php artisan tinker
+docker compose exec app php artisan db:seed # (necessário quando executado testes dentro do container)
 docker compose exec app php artisan test
 ```
 
@@ -200,7 +200,8 @@ docker compose down -v      # remove volumes (apaga dados)
 
 ## 5. Execução de testes
 
-Localmente (fora ou dentro do container `app`):
+Certifique-se de ter executado o `composer install` antes de executar os testes e buildar o container.
+Dê preferência para execução localmente (fora do container `app`), visto  que a instalação do container é `--no-dev`:
 ```bash
 php artisan test
 # ou
@@ -212,7 +213,7 @@ Os testes cobrem:
 - Controllers de Feature (Customers, Customer Favorites, Products)
 - Autenticação (login) com validação 200/422
 
-##### Nota: Caso execute os testes no docker, será necessário executar as migrations novamente após a finalização dos testes.
+##### Nota: Caso execute os testes no docker, será necessário executar as migrations e seeder novamente após a finalização dos testes.
 
 ------------------------------------------------------------
 

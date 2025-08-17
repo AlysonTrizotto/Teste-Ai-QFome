@@ -105,9 +105,7 @@ services:
         set -e;
 
         #Instala as dependências do composer
-        if [ ! -d vendor ]; then
-          composer install --no-dev --prefer-dist || true;
-        fi;
+        composer install --prefer-dist || true;
 
         # Instala o Octane
         if [ ! -f vendor/laravel/octane/composer.json ]; then
@@ -117,11 +115,7 @@ services:
           php artisan octane:install --server=swoole -n || true;
         fi;
 
-        #Inicia o Octane fazendo limpeza e otimização com cache (de configurações) do laravel
-        php artisan optimize:clear;
-        php artisan optimize;
-        php artisan migrate --force;
-        php artisan db:seed --force;
+        #Inicia o Octane
         php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
       '
 

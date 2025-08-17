@@ -36,7 +36,10 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "@php artisan config:clear",
+            "@php artisan optimize:clear",
+            "@php artisan optimize",
+            "@php artisan migrate --force",
+            "@php artisan db:seed --force",
             "@php artisan clear-compiled",
             "@php artisan package:discover --ansi"
         ],
