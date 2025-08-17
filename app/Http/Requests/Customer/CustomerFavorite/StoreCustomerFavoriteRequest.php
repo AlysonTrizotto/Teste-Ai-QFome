@@ -5,6 +5,7 @@ namespace App\Http\Requests\Customer\CustomerFavorite;
 use App\Rules\CheckIfProductExistsRule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueProductByUserRule;
+use Illuminate\Validation\Rule;
 
 class StoreCustomerFavoriteRequest extends FormRequest
 {
@@ -20,7 +21,8 @@ class StoreCustomerFavoriteRequest extends FormRequest
             'customer_id' => [
                 'required', 
                 'integer', 
-                'exists:customers,id', 
+                Rule::exists('customers', 'id')
+                    ->whereNull('deleted_at'), 
                 new UniqueProductByUserRule(
                     $this->product_id, 
                     $this->customer_id
