@@ -9,7 +9,10 @@ use App\Helpers\Concurrency;
 
 class CustomerFavoriteService
 {
-    public function __construct(private CustomerFavorite $customerFavorite){}
+    public function __construct(private ?CustomerFavorite $customerFavorite = null)
+    {
+        $this->customerFavorite ??= new CustomerFavorite();
+    }
 
     public function paginate(array $filters = []): LengthAwarePaginator
     {

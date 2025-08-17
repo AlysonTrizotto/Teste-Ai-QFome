@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User\User;
 
 
 class AuthenticationRequest extends FormRequest
@@ -46,9 +48,11 @@ class AuthenticationRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        $credentials = $this->only('email', 'password');
+        $user = User::where('email', $credentials['email'])->first();
 
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+            RateLimiter::hit($this->throttleKey());
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
@@ -56,7 +60,9 @@ class AuthenticationRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        $this->setUserResolver(fn() => Auth::user());
+        // Autentica o usuário para o siclo de vida completo da requisição (necessário para os testes).
+        Auth::setUser($user);
+        $this->setUserResolver(fn() => $user);
     }
 
     public function ensureIsNotRateLimited(): void

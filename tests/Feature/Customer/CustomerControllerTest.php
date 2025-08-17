@@ -7,7 +7,6 @@ use App\Models\Customer\Customer;
 
 class CustomerControllerTest extends TestCase
 {
-
     public function test_index_returns_ok(): void
     {
         Customer::factory()->count(2)->create();

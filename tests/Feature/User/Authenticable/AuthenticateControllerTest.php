@@ -3,14 +3,11 @@
 namespace Tests\Feature\User\Authenticable;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticateControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function test_authenticate_success_returns_token_and_user(): void
     {
         $password = 'secret123';

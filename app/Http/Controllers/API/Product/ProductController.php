@@ -19,6 +19,7 @@ class ProductController extends Controller
     public function show(int $product)
     {
         $data = $this->productService->show($product);
-        return ProductResource::make($data);
+    
+        return response()->json((new ProductResource($data))->resolve());
     }
 }

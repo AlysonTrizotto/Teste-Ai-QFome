@@ -4,7 +4,6 @@ namespace Tests\Unit\Customer;
 
 use PHPUnit\Framework\TestCase;
 use App\Services\Customer\CustomerFavoriteService;
-use App\Models\Customer\CustomerFavorite;
 
 class CustomerFavoriteServiceTest extends TestCase
 {

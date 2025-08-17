@@ -4,10 +4,12 @@ namespace Tests\Feature\Customer;
 
 use Tests\TestCase;
 use App\Models\Customer\CustomerFavorite;
+use App\Models\Customer\Customer;
+use App\Services\Products\ProductService;
 
 class CustomerFavoriteControllerTest extends TestCase
 {
-
+    
     public function test_index_returns_ok(): void
     {
         CustomerFavorite::factory()->count(2)->create();
@@ -17,13 +19,31 @@ class CustomerFavoriteControllerTest extends TestCase
 
     public function test_store_validates_payload(): void
     {
-        $res = $this->postJson('/api/v1/customer-favorites', []);
+        // teste com payload invalido
+        $payload = [
+            'product_id' => 999999,
+            'customer_id' => 0,
+        ];
+        $res = $this->postJson('/api/v1/customer-favorites', $payload);
         $res->assertStatus(422);
     }
 
     public function test_store_creates_record(): void
     {
-        $payload = CustomerFavorite::factory()->make()->toArray();
+        $customer = Customer::factory()->create();
+
+        // Mock ProductService
+        $this->mock(ProductService::class, function ($mock) {
+            $mock->shouldReceive('show')->andReturnUsing(function ($id) {
+                return ['id' => (int) $id];
+            });
+        });
+
+        $payload = [
+            'customer_id' => $customer->id,
+            'product_id' => 1,
+        ];
+
         $res = $this->postJson('/api/v1/customer-favorites', $payload);
         $res->assertCreated();
         $expected = collect($payload)
